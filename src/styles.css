@@ -1,0 +1,932 @@
+:root {
+    --bg: radial-gradient(circle at top, #1d3557 0, #020617 45%, #000 100%);
+    --card-bg: rgba(15, 23, 42, 0.86);
+    --accent: #38bdf8;
+    --accent-soft: rgba(56, 189, 248, 0.2);
+    --text: #e5e7eb;
+    --muted: #9ca3af;
+    --border: rgba(148, 163, 184, 0.35);
+    --danger: #ef4444;
+    --success: #22c55e;
+    --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.9);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+#root {
+    min-height: 100vh;
+}
+
+.app-root {
+    width: 100%;
+    margin: 0;
+    padding: 24px 40px 40px;
+    box-sizing: border-box;
+}
+
+/* HEADER */
+
+.app-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.logo-orb {
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+    background: radial-gradient(circle at 30% 20%, #f97316, #22c55e, #0ea5e9);
+    box-shadow: 0 0 40px rgba(56, 189, 248, 0.6);
+}
+
+.app-header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    letter-spacing: 0.03em;
+}
+
+.subtitle {
+    margin: 4px 0 0;
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+
+/* LAYOUT */
+
+.app-main {
+    display: grid;
+    grid-template-columns: 1.1fr 1.4fr;
+    gap: 18px;
+}
+
+.left-column,
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* CARDS */
+
+.card {
+    background: var(--card-bg);
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-soft);
+    padding: 16px 18px;
+    backdrop-filter: blur(18px);
+    transform: translateY(0);
+    transition:
+            transform 0.22s cubic-bezier(0.19, 1, 0.22, 1),
+            box-shadow 0.22s cubic-bezier(0.19, 1, 0.22, 1),
+            border-color 0.22s ease-out;
+}
+
+.card:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 26px 60px rgba(15, 23, 42, 0.96);
+    border-color: rgba(148, 163, 184, 0.7);
+}
+
+/* FORM */
+
+.transaction-form .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 10px;
+}
+
+.transaction-form label {
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+
+.transaction-form input {
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(148, 163, 184, 0.5);
+    background: rgba(15, 23, 42, 0.9);
+    color: var(--text);
+    outline: none;
+}
+
+.transaction-form input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent-soft);
+}
+
+.primary-btn {
+    margin-top: 4px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(90deg, #0ea5e9, #22c55e);
+    color: #0b1120;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    box-shadow: 0 10px 25px rgba(34, 197, 94, 0.35);
+}
+
+.primary-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 30px rgba(56, 189, 248, 0.4);
+}
+
+/* TRANSACTION LIST */
+
+.transaction-list table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+}
+
+.transaction-list th,
+.transaction-list td {
+    padding: 6px 4px;
+    text-align: left;
+}
+
+.transaction-list thead {
+    border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+    color: var(--muted);
+}
+
+.transaction-list tbody tr:nth-child(even) {
+    background: rgba(15, 23, 42, 0.6);
+}
+
+.transaction-list.empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+}
+
+/* SUMMARY */
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.summary-card .amount {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 4px 0 2px;
+}
+
+/* RISK PROFILE */
+
+.risk-card .risk-options {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.risk-card label {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px;
+    border-radius: 12px;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(148, 163, 184, 0.6);
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.risk-card input[type="radio"] {
+    accent-color: var(--accent);
+}
+
+/* CHART */
+
+.chart-card {
+    margin-top: 4px;
+}
+
+.chart-wrapper {
+    margin-top: 8px;
+    height: 260px;
+}
+
+/* ETF GRID */
+
+.etf-card {
+    margin-top: 4px;
+}
+
+.etf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.etf-pill {
+    padding: 10px;
+    border-radius: 14px;
+    border: 1px solid rgba(148, 163, 184, 0.5);
+    background: radial-gradient(circle at top left, var(--accent-soft), transparent);
+    font-size: 0.8rem;
+}
+
+.etf-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.symbol {
+    font-weight: 600;
+}
+
+.risk-tag {
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+}
+
+.risk-low {
+    background: rgba(34, 197, 94, 0.12);
+    color: var(--success);
+}
+
+.risk-medium {
+    background: rgba(59, 130, 246, 0.12);
+    color: #60a5fa;
+}
+
+.risk-high {
+    background: rgba(239, 68, 68, 0.12);
+    color: var(--danger);
+}
+
+.etf-name {
+    font-weight: 500;
+    margin: 0 0 2px;
+}
+
+.etf-desc {
+    margin: 0;
+    color: var(--muted);
+}
+
+/* FOOTER */
+
+.app-footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+    .app-main {
+        grid-template-columns: 1fr;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .risk-card .risk-options {
+        flex-direction: column;
+    }
+}
+
+/* INCOME PLANNER */
+
+.income-card {
+    margin-top: 4px;
+}
+
+.income-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1.2fr;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.income-inputs .form-row {
+    margin-bottom: 10px;
+}
+
+.income-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    font-size: 0.8rem;
+}
+
+.stat-pill {
+    border-radius: 12px;
+    border: 1px solid rgba(148, 163, 184, 0.5);
+    padding: 8px 10px;
+    background: radial-gradient(circle at top left, var(--accent-soft), transparent);
+}
+
+.stat-label {
+    display: block;
+    color: var(--muted);
+    margin-bottom: 2px;
+}
+
+.stat-value {
+    font-weight: 600;
+}
+
+.stat-value.highlight {
+    color: var(--accent);
+}
+
+/* Make income planner stack on small screens */
+@media (max-width: 900px) {
+    .income-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* MONTH DROPDOWN */
+
+.month-selector-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.month-select-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.month-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+}
+
+.month-select {
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.7);
+    background: radial-gradient(circle at top left, var(--accent-soft), #020617);
+    color: var(--text);
+    font-size: 0.8rem;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.9);
+}
+
+.month-select:focus {
+    border-color: var(--accent);
+}
+
+.month-chip {
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.7);
+    background: rgba(15, 23, 42, 0.95);
+    font-size: 0.75rem;
+}
+
+/* GHOST BUTTON (REMOVE) */
+
+.ghost-btn {
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.6);
+    background: transparent;
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.ghost-btn:hover {
+    background: rgba(15, 23, 42, 0.9);
+    transform: translateY(-1px);
+}
+
+.ghost-btn.danger {
+    border-color: rgba(239, 68, 68, 0.7);
+    color: #fca5a5;
+}
+
+.ghost-btn.danger:hover {
+    background: rgba(239, 68, 68, 0.1);
+}
+/* SECONDARY BUTTON (LIVE PLAN) */
+
+.secondary-btn {
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--accent);
+    background: radial-gradient(circle at top, rgba(56, 189, 248, 0.2), transparent);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: default;
+}
+
+/* THEMED SALARY INPUT */
+
+.themed-input input {
+    background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), #020617);
+    border-color: rgba(56, 189, 248, 0.8);
+    box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.2);
+}
+
+/* ETF BUTTON STYLE */
+
+.etf-pill-btn {
+    padding: 10px;
+    border-radius: 14px;
+    border: 1px solid rgba(148, 163, 184, 0.5);
+    background: radial-gradient(circle at top left, var(--accent-soft), transparent);
+    font-size: 0.8rem;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease,
+    background 0.15s ease;
+    color: var(--text);
+}
+
+.etf-pill-btn:hover {
+    border-color: rgba(56, 189, 248, 0.9);
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
+    transform: translateY(-1px);
+}
+
+.etf-pill-btn-selected {
+    border-color: var(--accent);
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.4);
+    background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.25), #020617);
+}
+
+.etf-return {
+    margin: 4px 0 0;
+    font-size: 0.75rem;
+    color: var(--muted);
+}
+
+.etf-selected-label {
+    margin: 2px 0 0;
+    font-size: 0.7rem;
+    color: var(--accent);
+}
+
+/* CHART TOOLTIP (THEMED HOVER) */
+
+.chart-tooltip {
+    background: radial-gradient(circle at top, #0b1120, #020617);
+    border-radius: 12px;
+    border: 1px solid rgba(56, 189, 248, 0.6);
+    padding: 8px 10px;
+    box-shadow: 0 16px 35px rgba(15, 23, 42, 0.9);
+    font-size: 0.75rem;
+}
+
+.chart-tooltip-header {
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--accent);
+}
+
+.chart-tooltip-body {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.chart-tooltip-label {
+    color: var(--muted);
+}
+
+.chart-tooltip-value {
+    font-weight: 600;
+}
+
+/* PROFIT SUMMARY UNDER CHART */
+
+.profit-summary {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px dashed rgba(148, 163, 184, 0.5);
+}
+
+.profit-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+}
+
+.profit-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    font-size: 0.75rem;
+}
+
+.profit-pill {
+    padding: 8px 9px;
+    border-radius: 10px;
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    background: rgba(15, 23, 42, 0.9);
+}
+
+.profit-label {
+    display: block;
+    color: var(--muted);
+    margin-bottom: 2px;
+}
+
+.profit-value {
+    font-weight: 600;
+}
+
+.profit-highlight {
+    color: var(--accent);
+}
+
+@media (max-width: 900px) {
+    .profit-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+/* HERO SECTION (like Revelia screenshot) */
+
+.hero {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 96px 40px 88px;
+    overflow: hidden;
+    min-height: 70vh; /* more vertical space */
+    display: flex;
+    align-items: center;       /* vertical center */
+    justify-content: center;   /* horizontal center */
+    animation: heroFade 0.9s ease-out;
+}
+
+
+.hero-tagline {
+    margin: 10px auto 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #e5e7eb;
+}
+
+
+.hero-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.hero-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.7);
+    background: rgba(15, 23, 42, 0.95);
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-bottom: 16px;
+}
+
+.hero-title {
+    margin: 0;
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+}
+
+.hero-subtitle {
+    margin-bottom: 24px;
+    max-width: 560px;
+    font-size: 0.95rem;
+    color: var(--muted);
+}
+
+.hero-ctas {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+}
+
+.hero-btn {
+    border-radius: 999px;
+    padding: 9px 18px;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition:
+            transform 0.18s ease-out,
+            box-shadow 0.18s ease-out,
+            background 0.18s ease-out,
+            color 0.18s ease-out,
+            border-color 0.18s ease-out;
+}
+
+.hero-btn-primary {
+    background: linear-gradient(120deg, #22c55e, #38bdf8);
+    color: #020617;
+    box-shadow: 0 15px 35px rgba(56, 189, 248, 0.45);
+}
+
+.hero-btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 20px 45px rgba(56, 189, 248, 0.55);
+}
+
+.hero-btn-ghost {
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(148, 163, 184, 0.6);
+    color: var(--text);
+}
+
+.hero-btn-ghost:hover {
+    transform: translateY(-1px);
+    background: rgba(15, 23, 42, 0.98);
+    border-color: rgba(248, 250, 252, 0.8);
+}
+
+/* floating blurred orbs in the background */
+
+.hero-orb {
+    position: absolute;
+    border-radius: 999px;
+    filter: blur(40px);
+    opacity: 0.85;
+    animation: orbDrift 14s ease-in-out infinite alternate;
+}
+
+.hero-orb-1 {
+    width: 260px;
+    height: 260px;
+    background: radial-gradient(circle at 30% 20%, #f97316, #db2777, #1d4ed8);
+    top: -80px;
+    left: -60px;
+}
+
+.hero-orb-2 {
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle at 30% 20%, #22c55e, #22d3ee, #4f46e5);
+    top: -40px;
+    right: -40px;
+    animation-delay: 2s;
+}
+
+.hero-orb-3 {
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle at 20% 10%, #ec4899, #6366f1, #0ea5e9);
+    bottom: -120px;
+    left: 20%;
+    animation-delay: 4s;
+}
+
+/* DASHBOARD FRAME (“tablet” look) */
+
+.dashboard-shell {
+    width: 100%;
+    margin: 0;
+    padding: 0 40px 32px;
+    box-sizing: border-box;
+}
+
+
+.dashboard-frame {
+    border-radius: 32px;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), #020617);
+    box-shadow:
+            0 25px 80px rgba(15, 23, 42, 0.9),
+            0 0 0 1px rgba(15, 23, 42, 0.7);
+    padding: 18px 14px;
+    backdrop-filter: blur(26px);
+    animation: frameFloatUp 0.9s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.chart-full-width {
+    margin-top: 22px;
+}
+
+.chart-card {
+    width: 100%;
+}
+
+/* tweak main layout inside frame */
+
+.app-main {
+    display: grid;
+    grid-template-columns: 1.1fr 1.4fr;
+    gap: 18px;
+}
+
+@media (max-width: 900px) {
+    .hero {
+        padding: 72px 16px 48px;
+        min-height: 60vh;
+    }
+}
+
+    .dashboard-shell {
+        padding: 0 16px 24px;
+    }
+
+    .app-main {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-ctas {
+        flex-direction: column;
+    }
+
+    .dashboard-frame {
+        border-radius: 20px;
+    }
+
+    .app-main {
+        grid-template-columns: 1fr;
+    }
+
+/* ANIMATIONS */
+
+@keyframes heroFade {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroTitleFloat {
+    from {
+        transform: translateY(0);
+        box-shadow:
+                0 18px 55px rgba(15, 23, 42, 0.85),
+                0 0 0 1px rgba(56, 189, 248, 0.25);
+    }
+    to {
+        transform: translateY(-6px);
+        box-shadow:
+                0 30px 90px rgba(15, 23, 42, 0.95),
+                0 0 0 1px rgba(56, 189, 248, 0.45);
+    }
+}
+
+@keyframes frameFloatUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.99);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes orbDrift {
+    from {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    to {
+        transform: translate3d(20px, -16px, 0) scale(1.05);
+    }
+}
+.hero-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+/* card behind title + tagline */
+.hero-title-shell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto;
+    padding: 32px 48px;
+
+    border-radius: 28px;
+    background: radial-gradient(circle at top, rgba(16,23,42,0.96), #040b17);
+    border: 1px solid rgba(148,163,184,0.55);
+    box-shadow:
+            0 22px 70px rgba(15, 23, 42, 0.92),
+            0 0 0 1px rgba(56, 189, 248, 0.35);
+
+    backdrop-filter: blur(22px);
+    text-align: center;
+
+    /* subtle Apple-like motion */
+    animation: heroTitleFloat 3.6s ease-in-out infinite alternate;
+}
+
+
+.hero-title {
+    margin: 0;
+    font-size: clamp(2.8rem, 4.6vw, 3.8rem);
+    line-height: 1.05;
+    letter-spacing: 0.03em;
+}
+
+.hero-tagline {
+    margin: 8px 0 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #e5e7eb;
+}
+
+.hero-subtitle {
+    margin: 24px auto 0;
+    max-width: 560px;
+    font-size: 0.95rem;
+    color: var(--muted);
+}
+.hero-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+/* card behind title + tagline */
+.hero-title-shell {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 20px 40px;
+    border-radius: 999px;
+    background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), #020617);
+    border: 1px solid rgba(148, 163, 184, 0.6);
+    box-shadow:
+            0 18px 60px rgba(15, 23, 42, 0.9),
+            0 0 0 1px rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(18px);
+    animation: heroTitleGlow 3.5s ease-in-out infinite alternate;
+}
+
+.hero-title {
+    margin: 0;
+    font-size: clamp(2.8rem, 4.6vw, 3.8rem);
+    line-height: 1.05;
+    letter-spacing: 0.03em;
+}
+
+.hero-tagline {
+    margin: 8px 0 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #e5e7eb;
+}
+
+.hero-subtitle {
+    margin: 24px auto 0;
+    max-width: 560px;
+    font-size: 0.95rem;
+    color: var(--muted);
+}
